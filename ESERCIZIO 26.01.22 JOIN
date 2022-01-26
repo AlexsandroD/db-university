@@ -62,10 +62,11 @@ ORDER BY `teachers`.`name` ASC
 
 == 7 == 
 
-SELECT`students`.name,`students`.`surname`, COUNT(`exam_student`.vote) AS 'Tentativi'
+SELECT`students`.name,`students`.`surname`, COUNT(`exam_student`.vote) AS 'Tentativi', MAX(`exam_student`.`vote`) AS 'Voto_massimo',`courses`.`name`
 FROM `students`  
 JOIN `exam_student` ON `students`.`id` = `exam_student`.`student_id`
 JOIN exams ON exam_student.exam_id = exams.id
-WHERE `exam_student`.vote >= 18
-GROUP BY `students`.`id`  
+JOIN courses ON exams.course_id = courses.id
+WHERE exam_student.vote >= 18 AND exam_student.vote <= 30
+GROUP BY `students`.`id`,`courses`.`id`  
 ORDER BY `students`.`name`  ASC
