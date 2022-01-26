@@ -18,3 +18,7 @@ FROM `exam_student`
 GROUP by `vote`
 
 == 4 ==
+
+SELECT COUNT(`name`),`department_id`
+FROM `degrees`
+GROUP BY `department_id`
