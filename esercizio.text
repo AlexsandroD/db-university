@@ -15,8 +15,22 @@ WHERE `cfu` > '10' ;
 === 3 ===
 SELECT * 
 FROM `students`
-WHERE YEAR(CURRENT_DATE()) - YEAR(`date_of_birth`) > '30';
+WHERE YEAR(CURRENT_DATE()) - YEAR(`date_of_birth`) >= '30';
+=== 3.2 ===
 
+WHERE DATEDIFF(CURRENT_DATE; `date_of_birth`) >= (30 * 365 .25);
+**** best practice ****
+
+=== 3.3 ===
+SELECT TIMESTAMPDIFF(YEAR, `date_of_birth`,CURRENT_DATE()) >= 30;
+FROM `students` 
+****da gli anni dopo aver fatto la differenza ****
+
+
+=== 3.4 ===
+SELECT * 
+FROM `students`
+WHERE DATE_SUB(CURRENT_DATE, INTERVAL 30 YEAR) >= `date_of_birth`
 
 === 4 ===
 SELECT * 
@@ -39,12 +53,12 @@ FROM `degrees`
 WHERE `level` = 'magistrale'
 
 ==== 7 === 
-SELECT COUNT(*) 
+SELECT COUNT(*) as `Tot_dipartimenti`
 FROM `departments` 
 
 
 === 8 ===
-SELECT COUNT(*)
+SELECT COUNT(*) as `Teachers_without_phone_number`
 FROM `teachers`
 WHERE `phone` IS NULL
 
